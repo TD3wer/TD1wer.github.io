@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil Alternativo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="card" id="profileCard">            
+        <div class="card-body text-center">
+            <img src="https://via.placeholder.com/150" alt="Imagem de Perfil" id="ProfileImage" class="rounded-circle mb-3" style="width: 150px;">
+            <h3 id="profileName">Nome: Meu Perfil</h3>
+            <p id="profileAge">Idade: 18</p>
+
+            <h5>Hobbies:</h5>
+            <ul id="hobbiesList" class="list-group mb-3">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Leitura
+                    <button class="btn btn-danger btn-sm" onclick="removerHobby(this)">Remover</button>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Esportes
+                    <button class="btn btn-danger btn-sm" onclick="removerHobby(this)">Remover</button>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Música
+                    <button class="btn btn-danger btn-sm" onclick="removerHobby(this)">Remover</button>
+                </li>
+            </ul>
+
+            <button class="btn btn-primary me-2" onclick="alterarNome()">Alterar Nome</button>
+            <button class="btn btn-success me-2" onclick="adicionarHobby()">Adicionar Hobby</button>
+            <button class="btn btn-warning me-2" onclick="mudarCorDeFundo()">Alterar Cor de Fundo</button>
+            <button class="btn btn-info me-2" onclick="mudarImagem()">Alterar Imagem</button>
+            <button class="btn btn-secondary me-2" onclick="alterarIdade()">Alterar Idade</button>
+        </div>
+    </div>
+
+    <script>
+        
+        function alterarNome() {
+            const novoNome = prompt("Digite o novo nome:");
+            if (novoNome) {
+                document.getElementById("profileName").textContent = "Nome: " + novoNome;
+            }
+        }
+
+        function adicionarHobby() {
+            const novoHobby = prompt("Digite um novo hobby:");
+            if (novoHobby) {
+                const li = document.createElement("li");
+                li.textContent = novoHobby;
+                li.className = "list-group-item d-flex justify-content-between align-items-center";
+                
+                const removerButton = document.createElement("button");
+                removerButton.className = "btn btn-danger btn-sm";
+                removerButton.textContent = "Remover";
+                removerButton.onclick = function() {
+                    removerHobby(removerButton);
+                };
+
+                li.appendChild(removerButton);
+                document.getElementById("hobbiesList").appendChild(li);
+            }
+        }
+
+        function removerHobby(button) {
+            const hobbyItem = button.parentElement;
+            hobbyItem.remove();
+        }
+
+        
+        function mudarCorDeFundo() {
+            const cores = ["#f8d7da", "#d4edda", "#fff3cd", "#cce5ff", "#000000"];
+            const corAleatoria = cores[Math.floor(Math.random() * cores.length)];
+            document.getElementById("profileCard").style.background = corAleatoria;
+        }
+
+     
+        function mudarImagem() {
+            const novaImagem = prompt("Digite a URL da nova imagem:");
+            if (novaImagem) {
+                document.getElementById("ProfileImage").src = novaImagem;
+            }
+        }
+
+      
+        function alterarIdade() {
+            const novaIdade = prompt("Digite a nova idade:");
+            if (novaIdade) {
+                document.getElementById("profileAge").textContent = "Idade: " + novaIdade;
+            }
+        }
+
+      
+        function incrementarIdade() {
+            let idadeAtual = parseInt(document.getElementById("profileAge").textContent.replace("Idade: ", ""));
+            idadeAtual += 1;
+            document.getElementById("profileAge").textContent = "Idade: " + idadeAtual;
+        }
+
+        setInterval(incrementarIdade, 365 * 24 * 60 * 60 * 1000); 
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
